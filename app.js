@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var hbs = require('express-handlebars');
 
 var index = require('./routes/index');
 //var users = require('./routes/users');
@@ -19,6 +20,7 @@ MongoClient.connect('', (err, database) => {
 })*/
 
 // view engine setup
+app.engine('hbs', hbs({extname: 'hbs', defaultLayout: 'index', layoutsDir: __dirname + '/views', partialsDir: __dirname + '/views/includes/'}));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
