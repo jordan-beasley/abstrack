@@ -1,6 +1,9 @@
 <!-- 
 	TODO:
 	1. Make two live pages - one for countdown and other for streams/map
+		a. Pull date for new mission and start timer for that date
+		b. Change to live streams after countdown is over
+		c. Twitter feed(?)
 	2. Link AR Ballon Youtube instead of Corbin's
 	3. Adjust styling
 -->
@@ -13,3 +16,39 @@
 		Map Placeholder
 	</div>
 </article>
+<article class="post featured">
+	<h1 id="demo"></h1>
+</article>
+
+<script type="text/javascript">
+// Widget courtesy of W3 Schools (https://www.w3schools.com/howto/howto_js_countdown.asp)
+
+// Set the date we're counting down to
+var countDownDate = new Date("Sep 5, 2018 15:37:25").getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get todays date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now an the count down date
+  var distance = countDownDate - now;
+
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Display the result in the element with id="demo"
+  document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+  + minutes + "m " + seconds + "s ";
+
+  // If the count down is finished, write some text 
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("demo").innerHTML = "EXPIRED";
+  }
+}, 1000);
+</script>
