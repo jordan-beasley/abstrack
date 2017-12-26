@@ -15,6 +15,10 @@ router.use('/prediction', missions);
 var missions = require('../routes/found');
 router.use('/found', missions);
 
+router.get('/live', function(req, res, next) {
+	res.render('live', {title: 'Live Stream'});
+});
+
 // router.get('/recovery', function(req, res, next){
 //   res.render('recovery');
 // });
