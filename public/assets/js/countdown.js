@@ -1,4 +1,4 @@
-$('#clock').countdown('12/29/2017 21:34:30')
+$('#clock').countdown('12/29/2017 21:47:45')
 .on('update.countdown', function(event) {
 	var format = '%H:%M:%S';
 	if(event.offset.totalDays > 0) {
@@ -10,6 +10,5 @@ $('#clock').countdown('12/29/2017 21:34:30')
 	$(this).html(event.strftime(format));
 })
 .on('finish.countdown', function(event) {
-  	$(this).html('<iframe width="560" height="349" src="https://www.youtube.com/embed/live_stream?channel=UC32wSiJJ0feluCeE_GxtL-g" frameborder="0" allowfullscreen></iframe><div id="mapBlock">Map Placeholder</div>')
-    .parent().addClass('disabled');
+  	$('#clockBlock').replaceWith('<div><iframe width="560" height="349" src="https://www.youtube.com/embed/live_stream?channel=UC32wSiJJ0feluCeE_GxtL-g" frameborder="0" allowfullscreen></iframe><div id="mapBlock">Map Placeholder</div></div>');
 });
