@@ -1,4 +1,4 @@
-$('#clock').countdown('12/29/2017 21:47:45')
+$('#clock').countdown('01/20/2018 21:47:45')
 .on('update.countdown', function(event) {
 	var format = '%H:%M:%S';
 	if(event.offset.totalDays > 0) {
