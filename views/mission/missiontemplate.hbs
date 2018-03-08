@@ -7,9 +7,11 @@
 		<h1>{{mission.title}}</h1>
 		<p>{{mission.description}}</p>
 		<!--Add first image of mission-->
-		<div class="image main">
-			<img src={{mission.featuredImage}} alt="" />
+		{{#if mission.featuredImage}}
+			<div class="image main">
+				<img src={{mission.featuredImage}} alt="" />
 			</div>
+		{{/if}}
 		<p>{{mission.body}}</p>
 	</header>
 </section>

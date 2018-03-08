@@ -59,8 +59,7 @@ var emptyMission = {
     date:'',
     title: 'Mission Not Found',
     description: '',
-    body: '',
-    featuredImage:''
+    body: ''
 
 }
 
