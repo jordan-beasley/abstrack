@@ -6,8 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var hbs = require('express-handlebars');
 
-var routes = require('./routes'); //index.js
-//var users = require('./routes/users');
+var routes = require('./routes');
 
 var app = express();
 
@@ -37,8 +36,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes); //routes == index.js (default)
-//app.use('/users', users);
+app.use('/', routes);
 
 //var NLTunnel = require('node-local-tunnel');
 

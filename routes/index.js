@@ -22,10 +22,6 @@ router.use('/about', about);
 //   res.render('recovery');
 // });
 
-// router.get('/about', function(req, res, next){
-//   res.render('about');
-// }); 
-
 // must be at the bottom, will take precedence over other views
 router.get('*', function(req, res){
   res.render('error', {title: 'Error 404'});
