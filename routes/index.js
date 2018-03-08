@@ -18,9 +18,8 @@ router.use('/found', found);
 var about = require('../routes/about');
 router.use('/about', about);
 
-// router.get('/recovery', function(req, res, next){
-//   res.render('recovery');
-// });
+var recovery = require('../routes/recovery');
+router.use('/recovery', recovery);
 
 // must be at the bottom, will take precedence over other views
 router.get('*', function(req, res){
