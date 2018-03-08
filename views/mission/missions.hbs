@@ -5,9 +5,11 @@
 			<h2>{{featuredMission.title}}</h2>
 			<h4>{{featuredMission.subtitle}}</h4>
 		</header>
-		<div class="image main">
-			<img class="featured-image" src={{featuredMission.featuredImage}} alt="" />
-		</div>
+		{{#if featuredMission.featuredImage}}
+			<div class="image main">
+				<img class="featured-image" src={{featuredMission.featuredImage}} alt="" />
+			</div>
+		{{/if}}
 		<p>{{featuredMission.description}}</p>
 		<a href="missions?id={{featuredMission.id}}" class="button fit" data-id={{featuredMission.id}}>Full Story</a>
 	</section>
@@ -20,7 +22,9 @@
 				<h2>{{mission.title}}
 				<br />{{mission.subtitle}}</h2>
 			</header>
-			<img class="image fit" src={{mission.featuredImage}} alt="" />
+			{{#if mission.featuredImage}}
+				<img class="image fit" src={{mission.featuredImage}} alt="" />
+			{{/if}}
 			<p>{{mission.description}}</p>
 			<ul class="actions">
 				<li><a href="missions?id={{mission.id}}" class="button" data-id={{mission.id}}>Full Story</a></li>
