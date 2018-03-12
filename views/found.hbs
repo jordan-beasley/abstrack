@@ -1,25 +1,30 @@
 <!-- Post -->
-<section class="post">
-	<header class="major">
-		<span class="date">April 25, 2017</span>
-		<h1>Found Page</h1>
-</section>
-<section>
-	<form method="post" action="#">
-		<div class="field">
-			<label for="name">Name</label>
-			<input type="text" name="name" id="name" />
-		</div>
-		<div class="field">
-			<label for="email">Email</label>
-			<input type="text" name="email" id="email" />
-		</div>
-		<div class="field">
-			<label for="message">Message</label>
-			<textarea name="message" id="message" rows="3"></textarea>
-		</div>
-		<ul class="actions">
-			<li><input type="submit" value="Send Message" /></li>
-		</ul>
-	</form>
-</section>
+{{#if msgSuccess}}
+	<section>
+		<h1>{{msgSuccess.msg}}</h1>
+	</section>
+{{else}}
+	<section>
+		<h1>Did you find one of our balloons?</h1>
+		<form method="post" action="#">
+			<div class="field">
+				<label for="name">Name*</label>
+				<input type="text" name="name" id="name" placeholder="Please enter your full name" required></input>
+			</div>
+			<div class="field">
+				<label for="email">Email</label>
+				<input type="text" name="email" id="email" placeholder="Enter a valid email address"/>
+			</div>
+			<div class="field">
+				<label for="message">Message*</label>
+				<textarea name="message" id="message" rows="3" placeholder="Please provide as much detail as possible" required></textarea>
+			</div>
+			<ul class="actions">
+				<li><input type="submit" value="Send Message" /></li>
+			</ul>
+			<div class="field">
+				<p>* required fields</p>
+			</div>
+		</form>
+	</section>
+{{/if}}

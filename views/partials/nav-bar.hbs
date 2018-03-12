@@ -2,12 +2,12 @@
   <nav id="nav">
     <ul class="links">
       <!--<li class="active"><a href="">{{ currentPage }}</a></li>-->
-      <li><a href="/">ABSTrack</a></li>
-      <li class = {{missions}}><a href="missions">Missions</a></li>
-      <li class = {{prediction}}><a href="prediction">Predictions</a></li>
-      <li class = {{recovery}}><a href="recovery">Recovery</a></li>
-      <li class = {{found}}><a href="found">FOUND ONE!</a></li>
-      <li class = {{about}}><a href="about">About Us</a></li>
+      <li class="{{#if active_home}}active{{/if}}"><a href="/">ABSTrack</a></li>
+      <li class="{{#if active_mission}}active{{/if}}"><a href="missions">Missions</a></li>
+      <li class="{{#if active_pred}}active{{/if}}"><a href="prediction">Predictions</a></li>
+      <li class="{{#if active_recov}}active{{/if}}"><a href="recovery">Recovery</a></li>
+      <li class="{{#if active_found}}active{{/if}}"><a href="found">FOUND ONE!</a></li>
+      <li class="{{#if active_about}}active{{/if}}"><a href="about">About Us</a></li>
     </ul>
     <ul class="icons">
       <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>

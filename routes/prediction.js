@@ -18,7 +18,7 @@ var balloon = {
 var index = 0;
 
 router.get('/', function(req, res, next){
-    res.render('prediction', {title: 'Prediction'});
+    res.render('prediction', {title: 'Prediction', active_pred: true});
 });
 
 router.get('/liveupdate', function(req, res, next){
