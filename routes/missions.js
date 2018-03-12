@@ -92,7 +92,7 @@ router.get('/', function(req, res, next){
     else
     {
         var missions = tempMissions;
-        res.render('mission/missions', {title: 'Missions', active_mission: true, featuredMission });
+        res.render('mission/missions', {title: 'Missions', active_mission: true, featuredMission, missions });
     }
 
 });
