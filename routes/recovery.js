@@ -1,9 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-
 router.get('/', function(req, res, next){
-    res.render('about', {title: 'About Us', page: 'about', active_about: true });
+    res.render('recovery', {active_recov: true});
 });
 
 module.exports = router;

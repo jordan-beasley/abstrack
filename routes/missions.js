@@ -87,12 +87,12 @@ router.get('/', function(req, res, next){
             mission = featuredMission;
         }
 
-        res.render('mission/missiontemplate', { mission, title: mission.title} );
+        res.render('mission/missiontemplate', { mission, active_mission: true, title: mission.title} );
     }
     else
     {
         var missions = tempMissions;
-        res.render('mission/missions', {title: 'Missions', missions, featuredMission});
+        res.render('mission/missions', {title: 'Missions', active_mission: true, featuredMission });
     }
 
 });
