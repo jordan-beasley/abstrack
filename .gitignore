@@ -6,5 +6,8 @@ npm-debug.log
 # Ignore node directories
 node_modules/
 
+# Ignore env file
+.env
+
 # Ignore DS_Store
 .DS_Store
