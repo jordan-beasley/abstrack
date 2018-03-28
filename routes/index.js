@@ -18,8 +18,8 @@ router.use('/found', found);
 var about = require('../routes/about');
 router.use('/about', about);
 
-var recovery = require('../routes/recovery');
-router.use('/recovery', recovery);
+var live = require('../routes/live');
+router.use('/live', live);
 
 // must be at the bottom, will take precedence over other views
 router.get('*', function(req, res){
