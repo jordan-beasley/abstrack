@@ -1,57 +1,7 @@
 var express = require('express');
 var router = express.Router();
-
-var featuredMission = {
-    id: 50,
-    isFeature: true,
-    date:'April 25, 2017',
-    title: 'ABS-50',
-    subtitle: 'Howl at the Moon 2',
-    description: 'ABS-50 marked the 50th launch from Arkansas BalloonSAT and took place in Central Missouri during the 2017 Great American Eclipse',
-    body: 'Lorem ipsum dolor sit accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent. Vestibulum ante ipsum primis in faucibus magna blandit adipiscing eu felis iaculis. Lorem ipsum dolor sit accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent. Vestibulum ante ipsum primis in faucibus magna blandit adipiscing eu felis iaculis.',
-    featuredImage:'http://res.cloudinary.com/arballoonsat/image/upload/v1504696806/Arkansas_-_Best_Picture_ilq6oj.jpg',
-    images: [
-        "http://res.cloudinary.com/arballoonsat/image/upload/v1504696806/abs50-prep.jpg",
-        "http://res.cloudinary.com/arballoonsat/image/upload/v1504696806/Arkansas_-_Best_Picture_ilq6oj.jpg",
-        "http://res.cloudinary.com/arballoonsat/image/upload/v1504696806/abs50-1.jpg",
-        "http://res.cloudinary.com/arballoonsat/image/upload/v1504696806/abs50-2.jpg",
-        "http://res.cloudinary.com/arballoonsat/image/upload/v1504696806/abs50-4.jpg"
-    ]
-}
-var tempMissions = [
-    {
-        id: 49,
-        date:'April 21, 2017',
-        title: 'ABS-49',
-        subtitle: 'Eclipse Practice Run',
-        description: 'ABS-49 was a test of 2017 Eclipse Ballooning Project equipment',
-        body: 'Lorem ipsum dolor sit accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent. Vestibulum ante ipsum primis in faucibus magna blandit adipiscing eu felis iaculis. Lorem ipsum dolor sit accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent. Vestibulum ante ipsum primis in faucibus magna blandit adipiscing eu felis iaculis.',
-        featuredImage:'images/abs49.jpg',
-        images: [
-            "http://res.cloudinary.com/arballoonsat/image/upload/v1504696806/abs50-prep.jpg",
-            "http://res.cloudinary.com/arballoonsat/image/upload/v1504696806/Arkansas_-_Best_Picture_ilq6oj.jpg",
-            "http://res.cloudinary.com/arballoonsat/image/upload/v1504696806/abs50-1.jpg",
-            "http://res.cloudinary.com/arballoonsat/image/upload/v1504696806/abs50-2.jpg",
-            "http://res.cloudinary.com/arballoonsat/image/upload/v1504696806/abs50-4.jpg"
-        ]
-    },
-    {
-        id: 48,
-        date:'April 21, 2017',
-        title: 'ABS-48',
-        subtitle: 'Video Streaming',
-        description: 'ABS-48 was a test of 2017 Eclipse Ballooing Project video streaming equipment',
-        body: 'Lorem ipsum dolor sit accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent. Vestibulum ante ipsum primis in faucibus magna blandit adipiscing eu felis iaculis. Lorem ipsum dolor sit accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent. Vestibulum ante ipsum primis in faucibus magna blandit adipiscing eu felis iaculis.',
-        featuredImage:'images/abs48.jpg',
-        images: [
-            "http://res.cloudinary.com/arballoonsat/image/upload/v1504696806/abs50-prep.jpg",
-            "http://res.cloudinary.com/arballoonsat/image/upload/v1504696806/Arkansas_-_Best_Picture_ilq6oj.jpg",
-            "http://res.cloudinary.com/arballoonsat/image/upload/v1504696806/abs50-1.jpg",
-            "http://res.cloudinary.com/arballoonsat/image/upload/v1504696806/abs50-2.jpg",
-            "http://res.cloudinary.com/arballoonsat/image/upload/v1504696806/abs50-4.jpg"
-        ]
-    }
-];
+var MongoClient = require('mongodb').MongoClient;
+require('dotenv/config');
 
 var emptyMission = {
 
@@ -63,36 +13,74 @@ var emptyMission = {
 
 }
 
-
 router.get('/', function(req, res, next){
 
     if(req.query.id)
     {
         //simulation of database query to get mission information
-        var missID = req.query.id;
+        var missID = Number.parseInt(req.query.id)
         var mission = emptyMission;
 
-        tempMissions.forEach(function(miss)
-        {
-            
-            if(missID == miss.id)
-            {
-                mission = miss;
-            }
+        MongoClient.connect(process.env.MONGO_SERVER, function(err, db){
+            if(err) throw err;
+    
+            var dbo = db.db(process.env.MONGO_DB);
 
+            try{
+                dbo.collection(process.env.MISSIONS).findOne({ 'id' : missID })
+                .then(function(result)
+                {
+                    if(result != null && result != undefined)
+                    {
+                        mission = result;    
+                    }
+
+                    res.render('mission/missiontemplate', { mission, active_mission: true, title: mission.title} );
+                    db.close();
+
+                });
+            }catch(err)
+            {
+                console.log(err);
+                res.render('mission/missiontemplate', { mission, active_mission: true, title: mission.title} );
+            }
         });
 
-        if(missID == featuredMission.id)
-        {
-            mission = featuredMission;
-        }
-
-        res.render('mission/missiontemplate', { mission, active_mission: true, title: mission.title} );
     }
     else
     {
-        var missions = tempMissions;
-        res.render('mission/missions', {title: 'Missions', active_mission: true, featuredMission, missions });
+        MongoClient.connect(process.env.MONGO_SERVER, function(err, db){
+            if(err) throw err;
+    
+            var dbo = db.db(process.env.MONGO_DB);
+            var featuredMission = {};
+            var missions = [];
+            
+            try{
+                dbo.collection(process.env.MISSIONS).find({}).toArray(function(err, result)
+                {
+                    if(err) throw err;
+                    result.forEach(function(miss){
+                        if(miss.isFeature)
+                        {
+                            featuredMission = miss;
+                        }
+                        else{
+                            missions.push(miss);
+                        }
+                    });
+
+                    res.render('mission/missions', {title: 'Missions', active_mission: true, featuredMission, missions });
+                    db.close();
+                });
+
+            }catch(err)
+            {
+                console.log(err);
+                res.render('mission/missions', {title: 'Missions', active_mission: true, featuredMission, missions });
+            }
+            
+        });
     }
 
 });

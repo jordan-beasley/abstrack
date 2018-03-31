@@ -51,22 +51,22 @@
                     load: function() {
 
                         var chartData = this.series[0]; // grab the current data in the chart
-                        setInterval(function(){
-                            var interval = this;
-                            $.get('/prediction/liveupdate-graphs', function(data, status)
-                            {
-                                console.log("chart data:", data);
-                                //data: [[828,-2.4],[814,-4.0], [807,-4.0], [804,-5.6], [759.9, -6.2],
-                                //       [733.3, -6.5], [700,-7.0], [656.9, -8.9]]
-                                if(data != undefined || data != null)
-                                {
-                                    chartData.addPoint([data.dp, data.alt]); // add a new point to the chart
-                                }else
-                                {
-                                    clearInterval(interval);
-                                }
-                            });
-                        }, 3000);
+                        // setInterval(function(){
+                        //     var interval = this;
+                        //     $.get('/prediction/liveupdate-graphs', function(data, status)
+                        //     {
+                        //         console.log("chart data:", data);
+                        //         //data: [[828,-2.4],[814,-4.0], [807,-4.0], [804,-5.6], [759.9, -6.2],
+                        //         //       [733.3, -6.5], [700,-7.0], [656.9, -8.9]]
+                        //         if(data != undefined || data != null)
+                        //         {
+                        //             chartData.addPoint([data.dp, data.alt]); // add a new point to the chart
+                        //         }else
+                        //         {
+                        //             clearInterval(interval);
+                        //         }
+                        //     });
+                        // }, 3000);
                     }
                 }
             },
