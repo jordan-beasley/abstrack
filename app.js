@@ -6,23 +6,15 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var hbs = require('express-handlebars');
 
-var routes = require('./routes');
-
 var app = express();
-
-/*const MongoClient = require('mongodb').MongoClient
-
-MongoClient.connect('', (err, database) => {
-	if (err) return console.log(err)
-	db = database
-
-})*/
+app.use(express.static(path.join(__dirname, './public')));
 
 // view engine setup
 app.engine('hbs', hbs({
-            extname: 'hbs',  
+            extname: 'hbs',
+            helpers: require('./helpers/handlebars.js'),
             layoutsDir: __dirname + '/views/layouts/',
-            defaultLayout: 'layout', 
+            defaultLayout: 'layout',
             partialsDir: __dirname + '/views/partials/'
           }));
 app.set('views', path.join(__dirname, 'views'));
@@ -34,18 +26,11 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
+var routes = require('./routes');
 app.use('/', routes);
 
-//var NLTunnel = require('node-local-tunnel');
-
-//var options = {
-//	remoteHost : 'your-public-server.com',
-//	localBase : 'http://localhost:3000'
-//};
-//NLTunnel.client(options); // just call client() somewhere with options, you are free to go
-
+/*
 app.post('/', function (req, res) {
     res.sendStatus(200)
     console.log(req.body)
@@ -59,7 +44,7 @@ app.post('/', function (req, res) {
        if (err) return console.log(err)
        console.log('Telemetry saved to database')
   })
-})
+});*/
 
 
 // catch 404 and forward to error handler
@@ -81,7 +66,11 @@ app.use(function(err, req, res, next) {
 });
 
 
-app.listen(8080, function(){
+var server = app.listen(8080, function(){
   console.log('Listening on port 8080');
 });
+
+var io = require('socket.io')(server);
+app.set('socketio', io);
+
 module.exports = app;

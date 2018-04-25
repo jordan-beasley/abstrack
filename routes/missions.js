@@ -18,7 +18,7 @@ router.get('/', function(req, res, next){
     if(req.query.id)
     {
         //simulation of database query to get mission information
-        var missID = Number.parseInt(req.query.id)
+        var missID = Number.parseInt(req.query.id);
         var mission = emptyMission;
 
         MongoClient.connect(process.env.MONGO_SERVER, function(err, db){
@@ -28,14 +28,14 @@ router.get('/', function(req, res, next){
 
             try{
                 dbo.collection(process.env.MISSIONS).findOne({ 'id' : missID })
-                .then(function(result)
+                .then(function(results)
                 {
-                    if(result != null && result != undefined)
+                    if(results != null && results != undefined)
                     {
-                        mission = result;    
+                        mission = results;    
+                        res.render('mission/missiontemplate', { mission, active_mission: true, title: mission.title} );
                     }
 
-                    res.render('mission/missiontemplate', { mission, active_mission: true, title: mission.title} );
                     db.close();
 
                 });
@@ -53,14 +53,16 @@ router.get('/', function(req, res, next){
             if(err) throw err;
     
             var dbo = db.db(process.env.MONGO_DB);
-            var featuredMission = {};
+            var featuredMission = null;
             var missions = [];
             
             try{
-                dbo.collection(process.env.MISSIONS).find({}).toArray(function(err, result)
+                dbo.collection(process.env.MISSIONS).find({}, {sort: {id: -1}})
+                .toArray(function(err, results)
                 {
                     if(err) throw err;
-                    result.forEach(function(miss){
+                    results.forEach(function(miss)
+                    {
                         if(miss.isFeature)
                         {
                             featuredMission = miss;

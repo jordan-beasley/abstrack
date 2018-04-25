@@ -1,0 +1,29 @@
+<section>
+    <h1 id="planning_header" data-id={{plan.mission_id}}>Planning #{{plan.mission_id}}</h1>
+    <form name="planning_form">
+        <div class="field">
+            <label for="active_status">Status*</label>
+            <div class="select-wrapper">
+                <select name="active_status" id="active_status">
+                    <option value=0 >Not Active</option>
+                    <option value=1 {{#if plan.active}} selected {{/if}}>Active</option>
+                </select>
+            </div>
+        </div>
+        <div class="field">
+            <label for="planning_date">Date*</label>
+            <input type="date" name="planning_date" id="planning_date" value="{{plan.launch_date}}"/>
+        </div>
+        <div class="field">
+            <label for="location">Location*</label>
+            <input type="text" name="location" id="location" value="{{plan.launch_site}}"></input>
+        </div>
+        <ul class="actions">
+            <li><a class="button planning_submit icon fa-upload">Update</a></li>
+            <li><a class="button special icon fa-plus planning_new">New Launch</a></li>
+        </ul>
+        <div class="field">
+            <p>* required fields</p>
+        </div>
+    </form>
+</section>

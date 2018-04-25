@@ -7,15 +7,26 @@
 <script src="./assets/js/main.js"></script>
 <script src="./assets/js/photoswipe.min.js"></script>
 <script src="./assets/js/photoswipe-ui-default.min.js"></script>
+<script src="https://cdn.rawgit.com/alertifyjs/alertify.js/v1.0.10/dist/js/alertify.js"></script>
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.0/moment.min.js"></script>
 
 {{#if active_mission}}
 <script src="./assets/js/view-scripts/mission-script.js"></script>
 {{/if}}
 
 {{#if active_live}}
-<script src="./assets/js/view-scripts/map-script.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZba4XaiY_mwy4ViOAM-6ednrx0evMfVw&callback=initMap" async defer></script>
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="./assets/js/view-scripts/map-script.js"></script>
 <script src="./assets/js/view-scripts/data-graphs.js"></script>
+{{/if}}
+
+{{#if active_admin_planning}}
+<script src="./assets/js/view-scripts/ad-planning.js"></script>
+{{/if}}
+
+{{#if active_admin_edit}}
+<script src="./assets/js/view-scripts/ad-edit-missions.js"></script>
 {{/if}}

@@ -1,0 +1,73 @@
+<section>
+    <h1 id="mission_header" data-id={{mission.id}}>Editing Mission #{{mission.id}}</h1>
+    <form name="mission_form">
+        <div class="field">
+            <label for="mission_id_list">Mission ID</label>
+            <div class="select-wrapper">
+                <select name="mission_id_list" id="mission_id_list">
+                    {{#each ids as |id|}}
+                        {{#if (eq val_one=id val_two=../mission.id) }}
+                            <option value={{id}} selected>{{id}}</option>
+                        {{else}}
+                            <option value={{id}}>{{id}}</option>
+                        {{/if}}
+                    {{/each}}
+                </select>
+            </div>
+        </div>
+        <div class="field">
+            <label for="mission_feature">Feature Mission?</label>
+            <div class="select-wrapper">
+                <select id="mission_feature">
+                        <option value=0>No</option>
+                        <option value=1 {{#if mission.isFeature}} selected {{/if}}>Yes</option>
+                </select>
+            </div>
+        </div>
+        <div class="field">
+            <label for="mission_title">Title*</label>
+            <input type="text" name="mission_title" id="mission_title" value="{{mission.title}}"/>
+        </div>
+        <div class="field">
+            <label for="mission_subtitle">Subtitle</label>
+            <input type="text" name="mission_subtitle" id="mission_subtitle" value="{{mission.subtitle}}"/>
+        </div>
+        <div class="field">
+            <label for="mission_description">Description</label>
+            <input type="text" name="mission_description" id="mission_description" value="{{mission.description}}"/>
+        </div>
+        <div class="field">
+            <label for="mission_date">Date*</label>
+            <input type="date" name="mission_date" id="mission_date" value="{{mission.date}}"/>
+        </div>
+        <div class="field">
+            <label for="mission_body">Body</label>
+            <textarea name="mission_body" id="mission_body" rows="3" >{{mission.body}}</textarea>
+        </div>
+        <div class="field">
+            <label for="featured_imgae">Featured Image</label>
+            <input type="text" id="featured_image" value="{{mission.featuredImage}}"/>
+        </div>
+        <div class="field image_section">
+            <label for="mission_images">Images</label>
+            {{#each mission.images as |image|}}
+                <ul class="actions fit mission_image_wrapper">
+                    <li><input type="text" class="mission_image" value="{{image}}"/></li>
+                    <li><a class="button special icon fa-times mission_delete_image">Delete</a></li>
+                </ul>
+            {{/each}}
+        </div>
+        <ul class="actions">
+            <li><a class="button special icon fa-plus mission_add_image">Add Image</a></li>
+        </ul>
+        <ul class="actions">
+            <li><a class="button mission_update icon fa-upload">Update</a></li>
+            <li><a class="button mission_new special icon fa-plus">New Mission</a></li>
+            <li><a class="button mission_download special icon fa-file">Download CSV</a></li>
+            <li><a class="button mission_delete special icon fa-trash">Delete Mission</a></li>
+        </ul>
+        <div class="field">
+            <p>* required fields</p>
+        </div>
+    </form>
+</section>

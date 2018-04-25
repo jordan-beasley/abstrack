@@ -1,13 +1,11 @@
 <article class="post featured">
 	<header class="major">
-	<h2>Arkansas BalloonSAT Launch #51 </h2>
+		<h2>Arkansas BalloonSAT Launch #{{plan.mission_id}} </h2>
 	</header>
-	<img src="images/current.png" width="250px"> </img>
-	{{!-- <br>
-	<br> --}}
-	<h2>Current Mission Status: Planning </h2>
-	<h3> Anticipated Launch Date: Sept ??</h3>
-	<h3> Anticipated Launch Site: Hickory Ridge, AR </h3>
+	<img src="images/current.png" width="250px"></img>
+	<h2>Current Mission Status:{{#if plan.active}} Active {{else}} Planning {{/if}}</h2>
+	<h3> Anticipated Launch Date: {{plan.launch_date}}</h3>
+	<h3> Anticipated Launch Site: {{plan.launch_site}} </h3>
 	<ul class="actions">
 		<li><a href="/prediction" class="button big">Flight Predictions</a></li>
 		<li><a href="/live" class="button special big">Track Balloon</a></li>

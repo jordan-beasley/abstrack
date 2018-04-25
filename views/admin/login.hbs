@@ -1,0 +1,22 @@
+<section>
+    <h1>Log In</h1>
+    {{#if errMsg}}
+        <p style="color: red">*{{errMsg}}</p>
+    {{/if}}
+    <form method="post" action="/admin">
+        <div class="field">
+            <label for="username">Username*</label>
+            <input type="text" name="username" id="username" placeholder="Enter your username" required></input>
+        </div>
+        <div class="field">
+            <label for="pass">Password*</label>
+            <input type="password" name="pass" id="pass" placeholder="Enter your password" required></input>
+        </div>
+        <ul class="actions">
+            <li><input type="submit" value="Sign-in" /></li>
+        </ul>
+        <div class="field">
+            <p>* required fields</p>
+        </div>
+    </form>
+</section>
