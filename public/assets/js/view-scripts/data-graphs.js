@@ -155,8 +155,8 @@
                 formatter: function() {
 
                     var tooltip = `<table>
-                    <tr><td style="padding: 0.15rem;">Altitude: </td> <td style="text-align: right; padding: 0.15rem;"><b>${this.point.y} m/s</b></td></tr>
-                    <tr><td style="padding: 0.15rem;">Altitude: </td> <td style="text-align: right; padding: 0.15rem;"><b>${this.point.z} ft/s</b></td></tr>
+                    <tr><td style="padding: 0.15rem;">Velocity: </td> <td style="text-align: right; padding: 0.15rem;"><b>${this.point.y} m/s</b></td></tr>
+                    <tr><td style="padding: 0.15rem;">Velocity: </td> <td style="text-align: right; padding: 0.15rem;"><b>${this.point.z} ft/s</b></td></tr>
                     <tr><td style="padding: 0.15rem;">Timestamp: </td> <td style="text-align: right; padding: 0.15rem;"><b>${moment.utc(this.point.x).format('HH:mm:ss')}  UTC</b></td></tr></table>`
                     return tooltip;
                 }
