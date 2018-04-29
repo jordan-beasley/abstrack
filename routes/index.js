@@ -6,32 +6,39 @@ require('dotenv/config');
 
 router.get('/', function(req, res, next){
   
-  MongoClient.connect(process.env.MONGO_SERVER, function(err, db){
-    if(err) throw err;
+  try
+  {
+    MongoClient.connect(process.env.MONGO_SERVER, function(err, db){
+      if(err) throw err;
 
-    var dbo = db.db(process.env.MONGO_DB);
+      var dbo = db.db(process.env.MONGO_DB);
 
-    try{
-        dbo.collection(process.env.PLANNING_COLLECTION).findOne({}, {_id: 0})
-        .then(function(results)
-        {
-            db.close();
-            if(results != null && results != undefined)
-            {
-                var date = moment(results.launch_date);
-                results.launch_date = date.format('MMM D');
-                res.render('index', {title: 'Arkansas Balloon', page: 'Home', active_home: true, plan: results });
-            }else{
-              res.render('index', {title: 'Arkansas Balloon', page: 'Home', active_home: true });
-            }
+      try{
+          dbo.collection(process.env.PLANNING_COLLECTION).findOne({}, {_id: 0})
+          .then(function(results)
+          {
+              db.close();
+              if(results != null && results != undefined)
+              {
+                  var date = moment(results.launch_date);
+                  results.launch_date = date.format('MMM D');
+                  res.render('index', {title: 'Arkansas Balloon', page: 'Home', active_home: true, plan: results });
+              }else{
+                res.render('index', {title: 'Arkansas Balloon', page: 'Home', active_home: true });
+              }
 
-        });
-    }catch(err)
-    {
-        console.log(err);
-        res.render('index', {title: 'Arkansas Balloon', page: 'Home', active_home: true });
-    }
-  });
+          });
+      }catch(err)
+      {
+          console.log(err);
+          res.render('index', {title: 'Arkansas Balloon', page: 'Home', active_home: true });
+      }
+    });
+  }catch(err)
+  {
+    console.log(err);
+    res.render('index', {title: 'Arkansas Balloon', page: 'Home', active_home: true });   
+  }
 
 });
 

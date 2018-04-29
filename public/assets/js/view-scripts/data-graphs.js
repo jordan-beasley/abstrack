@@ -1,43 +1,47 @@
 (function(){
     $(window).on('load', function() {
 
+        var socket = io();
+
         var altPlot = Highcharts.chart('alt-plot', {
             chart: {
-                type: 'area',
+                type: 'areaspline',
                 zoomType: 'x',
                 panning: true,
                 events: {
                     load: function() {
                         var alt_data = this.series[0]; // grab the current data in the chart
-                        
-                        $.get('/live/live-altitude', function(data, status)
+                        socket.on('flight-data-alt', function(point)
                         {
-                            if(data != undefined || data != null)
-                            {
-                                data.forEach(point => {
-                                    var time = point.time_utc.split(':'); // split time string to array [hr, min, sec]
-                                    // convert values to utc timestamp
-                                    var timestamp = moment.utc({hour: Number.parseInt(time[0]),
-                                        minute: Number.parseInt(time[1]), second: Number.parseInt(time[2]), 
-                                        milisecond: 0}).valueOf();
+                            var time = point.time_utc.split(':'); // split time string to array [hr, min, sec]
+                            // convert values to utc timestamp
+                            var timestamp = moment.utc({hour: Number.parseInt(time[0]),
+                                minute: Number.parseInt(time[1]), second: Number.parseInt(time[2]), 
+                                milisecond: 0}).valueOf();
 
-                                    var alt_m = Number.parseFloat(point.alt_m);
-                                    var alt_ft = Number.parseFloat(point.alt_ft);
+                            var alt_m = Number.parseFloat(point.alt_m);
+                            var alt_ft = Number.parseFloat(point.alt_ft);
 
-                                    alt_data.addPoint({ x: timestamp, y: alt_m, z: alt_ft}, false, false);
-                                });
-                                
-                                altPlot.yAxis[0].isDirty = true;
-                                altPlot.redraw();
-                            }
-                            
-
+                            alt_data.addPoint({ x: timestamp, y: alt_m, z: alt_ft}, false, false);
+                            altPlot.setSubtitle({text: 'Altitude(m): ' + alt_m});
+                            altPlot.yAxis[0].isDirty = true;
+                            altPlot.redraw();
                         });
                     }
                 }
             },
             title: {
                 text: 'Altitude'
+            },
+            subtitle: {
+                floating: true,
+                align: 'left',
+                x: 80,
+                y: 60,
+                style: {
+                    fontWeight: 'bold',
+                    fontSize: '1rem'
+                }
             },
             xAxis: {
                 title:{
@@ -50,12 +54,9 @@
                     }
                 },
                 type: 'datetime',
-                //min: moment.utc(new Date()),
-                //max: moment.utc(new Date()).add(3, 'h'),
                 scrollbar: { enabled: true, showFull: false },
                 endOnTick: true,
-                tickLength: 0,
-                tickInterval: 3600 * 1000
+                tickLength: 0
 
             },
             yAxis: {
@@ -85,47 +86,65 @@
         
         });
 
-        var dewPlot = Highcharts.chart('dew-plot', {
+        var velPlot = Highcharts.chart('vel-plot', {
             chart: {
-                type: 'scatter',
-                zoomType: 'xy',
+                type: 'spline',
+                zoomType: 'x',
+                panning: true,
                 events: {
                     load: function() {
+                        var vel_data = this.series[0]; // grab the current data in the chart
+                        socket.on('flight-data-vel', function(point)
+                        {
+                            var time = point.time_utc.split(':'); // split time string to array [hr, min, sec]
+                            // convert values to utc timestamp
+                            var timestamp = moment.utc({hour: Number.parseInt(time[0]),
+                                minute: Number.parseInt(time[1]), second: Number.parseInt(time[2]), 
+                                milisecond: 0}).valueOf();
 
-                        var chartData = this.series[0]; // grab the current data in the chart
-                        // setInterval(function(){
-                        //     var interval = this;
-                        //     $.get('/prediction/liveupdate-graphs', function(data, status)
-                        //     {
-                        //         console.log("chart data:", data);
-                        //         //data: [[828,-2.4],[814,-4.0], [807,-4.0], [804,-5.6], [759.9, -6.2],
-                        //         //       [733.3, -6.5], [700,-7.0], [656.9, -8.9]]
-                        //         if(data != undefined || data != null)
-                        //         {
-                        //             chartData.addPoint([data.dp, data.alt]); // add a new point to the chart
-                        //         }else
-                        //         {
-                        //             clearInterval(interval);
-                        //         }
-                        //     });
-                        // }, 3000);
+                            var v_vel_ms = Number.parseFloat(point.v_vel_ms);
+                            var v_vel_ft = Number.parseFloat(point.v_vel_ft);
+
+                            vel_data.addPoint({ x: timestamp, y: v_vel_ms, z: v_vel_ft}, false, false);
+                            velPlot.setSubtitle({text: 'Velocity(m/s): ' + v_vel_ms});
+                            velPlot.yAxis[0].isDirty = true;
+                            velPlot.redraw();
+                        });
                     }
                 }
             },
             title: {
-                text: 'Dew Point'
+                text: 'Velocity'
+            },
+            subtitle: {
+                floating: true,
+                align: 'left',
+                x: 80,
+                y: 60,
+                style: {
+                    fontWeight: 'bold',
+                    fontSize: '1rem'
+                }
             },
             xAxis: {
                 title:{
                     enabled: true,
-                    text: 'Altitude (m)'
+                    text: 'Time-UTC'
                 },
+                labels: {
+                    formatter: function() {
+                        return `${moment.utc(this.value).format("HH:mm:ss")}`
+                    }
+                },
+                type: 'datetime',
+                scrollbar: { enabled: true, showFull: false },
                 endOnTick: true,
-                showLastLabel: true
+                tickLength: 0
+
             },
             yAxis: {
                 title: {
-                    text: 'Dew Point C'
+                    text: 'Velocity(m/s)'
                 }
             },
             lang: {
@@ -134,19 +153,20 @@
             tooltip: {
                 useHTML: true,
                 formatter: function() {
-                    var tooltip = `<small>${this.series.name}</small><table>
-                    <tr><td>Altitude: </td> <td style="text-align: right"><b>${Highcharts.numberFormat(this.x, 0, '.', ',')}  m</b></td></tr>
-                    <tr><td>Dew Point: </td> <td style="text-align: right"><b>${Highcharts.numberFormat(this.y, 0, '.', ',')} C</b></td></tr></table>`
+
+                    var tooltip = `<table>
+                    <tr><td style="padding: 0.15rem;">Altitude: </td> <td style="text-align: right; padding: 0.15rem;"><b>${this.point.y} m/s</b></td></tr>
+                    <tr><td style="padding: 0.15rem;">Altitude: </td> <td style="text-align: right; padding: 0.15rem;"><b>${this.point.z} ft/s</b></td></tr>
+                    <tr><td style="padding: 0.15rem;">Timestamp: </td> <td style="text-align: right; padding: 0.15rem;"><b>${moment.utc(this.point.x).format('HH:mm:ss')}  UTC</b></td></tr></table>`
                     return tooltip;
                 }
             },
             series: [{
-                name: 'Dew Point',
+                name: 'Velocity',
                 color: 'rgb(0, 215, 46)',
                 data:[]
             }]
         
         });
     });
-
 })();

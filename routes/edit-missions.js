@@ -92,7 +92,7 @@ router.get('/', function(req, res, next)
 router.post('/', function(req, res)
 {
     var cookie = req.cookies['abs-ad-key'];
-    console.log("delete: ", req.body);
+    
     try
     {
         MongoClient.connect(process.env.MONGO_SERVER, function(err, db){

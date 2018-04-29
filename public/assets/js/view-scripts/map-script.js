@@ -6,6 +6,8 @@ var map;
     $(window).on('load', function() 
     {
         var socket = io();
+        var recent_coord = $('#recent-coord');
+        var map_update = $('.map_update');
 
         // overwriting the initMap function to load map
         initMap = (function() {
@@ -21,7 +23,8 @@ var map;
             geodesic: true,
             strokeColor: '#FF0000',
             strokeOpacity: 1.0,
-            strokeWeight: 2
+            strokeWeight: 2,
+            zIndex: 2
         });
         predictedPath.setMap(map);
 
@@ -44,14 +47,37 @@ var map;
             
             path.push(new google.maps.LatLng(lat, lon));
             predictedPath.setPath(path);
-            console.log('lat: ', lat);
-            console.log('lon: ', lon);
+            recent_coord.text('Lat: ' + lat + ", Long: " + lon);
         });
 
-        //var path = predictedPath.getPath();
-        //path.push(new google.maps.LatLng(coord.lat, coord.lon));
-        //predictedPath.setPath(path);
-        
-    });
+        map_update.on('click', function(){
+            var historyPath = new google.maps.Polyline({
+                path: [],
+                geodesic: true,
+                strokeColor: '#00A307',
+                strokeOpacity: 1.0,
+                strokeWeight: 2
+            });
+            historyPath.setMap(map);
 
+            $.get('live/coords', function(coords)
+            {
+
+                if(coords != undefined && coords.length > 0)
+                {
+                    var path = historyPath.getPath();
+
+                    coords.forEach(coord => {
+                        var lat = Number.parseFloat(coord.lat);
+                        var lon = Number.parseFloat(coord.lon);
+                        path.push(new google.maps.LatLng(lat, lon));
+                    });
+
+                    historyPath.setPath(path);
+                    var index = coords.length - 1;
+                    recent_coord.text('Lat: ' + coords[index].lat + ", Long: " + coords[index].lon);
+                }
+            });
+        });
+    });
 })();

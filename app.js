@@ -30,30 +30,6 @@ app.use(cookieParser());
 var routes = require('./routes');
 app.use('/', routes);
 
-/*
-app.post('/', function (req, res) {
-    res.sendStatus(200)
-    console.log(req.body)
-    var hex  = req.body.data.toString()
-	var str = ''
-	for (var n = 0; n < hex.length; n += 2) {
-	str += String.fromCharCode(parseInt(hex.substr(n, 2), 16))
-    }
-    console.log(str)
-    db.collection('telemetry').save(req.body, (err, result) => {
-       if (err) return console.log(err)
-       console.log('Telemetry saved to database')
-  })
-});*/
-
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development

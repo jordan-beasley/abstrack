@@ -1,0 +1,24 @@
+<div class="table-wrapper">
+    <table class="alt">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Date</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each f_records as |r|}}
+                <tr>
+                    <td>{{r.name}}</td>
+                    <td>{{r.email}}</td>
+                    <td>{{r.phone}}</td>
+                    <td>{{r.timestamp}}</td>
+                    <td>{{r.message}}</td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>

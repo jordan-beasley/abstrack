@@ -9,54 +9,55 @@ router.get('/', function(req, res, next)
 {
     var cookie = req.cookies['abs-ad-key'];
     
-    try{
-    MongoClient.connect(process.env.MONGO_SERVER, function(err, db){
-        if(err) throw err;
-        
-        var dbo = db.db(process.env.MONGO_DB);
-        
-        try
-        {
-            dbo.collection(process.env.TESTCOL).findOne({key: { $eq: cookie }})
-            .then(function(results, err)
+    try
+    {
+        MongoClient.connect(process.env.MONGO_SERVER, function(err, db){
+            if(err) throw err;
+            
+            var dbo = db.db(process.env.MONGO_DB);
+            
+            try
             {
-                if(err) throw err;
-
-                if(results != null && results != undefined)
+                dbo.collection(process.env.TESTCOL).findOne({key: { $eq: cookie }})
+                .then(function(results, err)
                 {
-                    if(results.key == cookie)
-                    {
-                        dbo.collection(process.env.PLANNING_COLLECTION).findOne({}, {_id: 0})
-                        .then(function(results)
-                        {
-                            db.close();
-                            if(results != null && results != undefined)
-                            {
-                                res.render('planning', {title: 'Planning', active_admin_planning: true, plan: results });
-                            }else
-                            {
-                                res.render('admin/main', {title: 'Admin'});
-                            }
+                    if(err) throw err;
 
-                        });
+                    if(results != null && results != undefined)
+                    {
+                        if(results.key == cookie)
+                        {
+                            dbo.collection(process.env.PLANNING_COLLECTION).findOne({}, {_id: 0})
+                            .then(function(results)
+                            {
+                                db.close();
+                                if(results != null && results != undefined)
+                                {
+                                    res.render('planning', {title: 'Planning', active_admin_planning: true, plan: results });
+                                }else
+                                {
+                                    res.render('planning', {title: 'Planning', active_admin_planning: true });
+                                }
+
+                            });
+                        }else
+                        {
+                            res.render('admin/login', {title: 'Login'});                        
+                        }
                     }else
                     {
-                        res.render('admin/login', {title: 'Login'});                        
+                        db.close();
+                        res.render('admin/login', {title: 'Login'});
                     }
-                }else
-                {
-                    db.close();
-                    res.render('admin/login', {title: 'Login'});
-                }
 
-                //db.close();
-            });
-        }catch(err)
-        {
-            console.log(err);
-            res.render('admin/login', {title: 'Login'});
-        }
-    });
+                    //db.close();
+                });
+            }catch(err)
+            {
+                console.log(err);
+                res.render('admin/login', {title: 'Login'});
+            }
+        });
     }catch(err)
     {
         console.log(err);

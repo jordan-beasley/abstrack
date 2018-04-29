@@ -240,7 +240,14 @@
                                 for(var j = 0; j < keys.length; j++)
                                 {
                                     var key = keys[j];
-                                    values.push(flightdata[i][key]);
+
+                                    try
+                                    {
+                                        values.push(flightdata[i][key]);
+                                    }catch(err)
+                                    {
+                                        values.push('');
+                                    }
                                 }
                                 rows.push(values);
                             }
